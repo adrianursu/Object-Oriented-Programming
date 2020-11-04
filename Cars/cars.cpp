@@ -2,42 +2,133 @@
 
 using namespace std;
 
+// Abstract Class
 class Car
 {
-private:
-    int maxSpeed;
-    int horsePower;
-    string brand;
-    string model;
+protected:
+	int maxSpeed;
+	int horsePower;
+	string modelName;
+	string brandName;
 
 public:
-    Car(int a, int b, string c, string d)
-    {
-        maxSpeed = a;
-        horsePower = b;
-        brand = c;
-        model = d;
-    };
+	// Encapsulation
+	void setMaxSpeed(int maxSpeed)
+	{
+		this->maxSpeed = maxSpeed;
+	}
 
-    void information()
-    {
-        cout << brand << " " << model << " " << maxSpeed << "km/h" << " " << horsePower << "hp" << endl;
-    }
+	void setHorsePower(int horsePower)
+	{
+		this->horsePower = horsePower;
+	}
+
+	void setBrand(string brandName)
+	{
+		this->brandName = brandName;
+	}
+
+	void setmodelName(string modelName)
+	{
+		this->modelName = modelName;
+	}
+
+	void displayInfo()
+	{
+
+		cout << brandName << " " << modelName << " : " << getSpeedToMiles() << " miles/h, " << horsePower << " horse power " << endl;
+	}
+
+private:
+	float getSpeedToMiles()
+	{
+		return maxSpeed * 0.62;
+	}
+};
+
+// Inheritance
+
+class Bmw : public Car
+{
+private:
+	bool hasMPackage;
+
+public:
+	Bmw(string modelName, int horsePower, int maxSpeed)
+	{
+		this->brandName = "BMW";
+		this->modelName = modelName;
+		this->horsePower = horsePower;
+		this->maxSpeed = maxSpeed;
+	};
+
+	void setHasMPackage(bool hasMPackage)
+	{
+		this->hasMPackage = hasMPackage;
+	}
+
+	void checkHasMPackage()
+	{
+		if (hasMPackage)
+		{
+			cout << this->brandName << " are M package!";
+		}
+	}
+};
+
+class Audi : public Car
+{
+private:
+	bool hasAudiSport;
+
+public:
+	Audi(string modelName, int horsePower, int maxSpeed)
+	{
+		this->brandName = "Audi";
+		this->modelName = modelName;
+		this->horsePower = horsePower;
+		this->maxSpeed = maxSpeed;
+	};
+
+	void setHasAudiSport(bool hasAudiSport)
+	{
+		this->hasAudiSport = hasAudiSport;
+	}
+};
+
+class Mercedes : public Car
+{
+private:
+	bool hasAmgPackage;
+
+public:
+	Mercedes(string modelName, int horsePower, int maxSpeed)
+	{
+		this->brandName = "Mercedes";
+		this->modelName = modelName;
+		this->horsePower = horsePower;
+		this->maxSpeed = maxSpeed;
+	};
+
+	void setHasAmgPackage(bool hasAmgPackage)
+	{
+		this->hasAmgPackage = hasAmgPackage;
+	}
 };
 
 int main()
 {
-    Car BMW(250, 218, "BMW", "M2");
-    BMW.information();
+	Bmw bmw("M5", 506, 320);
+	Audi audi("RS7", 700, 400);
+	Audi audi2("RSQ8", 600, 320);
+	Mercedes mercedes("S CLASSE", 329, 170);
 
-    Car Audi(380, 484, "AUDI", "RSQ8");
-    Audi.information();
+	Car cars[4] = {bmw, audi, audi2, mercedes};
 
-    Car Lada(100, 59, "LADA", "SAMARA");
-    Lada.information();
+	for (int i = 0; i < 4; i++)
+	{
+		cars[i].displayInfo();
+	}
 
-    Car Honda(240, 160, "HONDA", "CR-V");
-    Honda.information();
-
-    return 0;
+	return 0;
 }
